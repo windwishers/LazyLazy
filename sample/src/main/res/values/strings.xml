@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LazyLazy</string>
+    <string name="colors">Colors</string>
+    <string name="filtering">필터링</string>
+    <string name="reload">리스트 다시 부르기</string>
+    <string name="fitler_label">name filter :</string>
 </resources>
