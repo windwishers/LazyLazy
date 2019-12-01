@@ -16,6 +16,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include
+            android:id="@+id/category_filter"
+            layout="@layout/linear_label_text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+        <include
             android:id="@+id/hex_filter"
             layout="@layout/linear_label_text"
             android:layout_height="wrap_content"

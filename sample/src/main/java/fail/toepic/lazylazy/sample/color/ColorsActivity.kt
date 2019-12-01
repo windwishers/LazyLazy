@@ -43,6 +43,14 @@ class ColorsActivity : AppCompatActivity() {
 
 
 
+        multiFilter.addFilter(MultiFilterItem(category_filter,"CATEGORY"){ filter, item ->
+            val text = filter.value
+            if(text.isEmpty())
+                false
+            else
+                item.value.categories.joinToString().contains(text,true)
+        })
+
         multiFilter.addFilter(MultiFilterItem(hex_filter,"HEXCODE"){ filter, item ->
             val text = filter.value
             if(text.isEmpty())
