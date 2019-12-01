@@ -1,8 +1,29 @@
 Lazy Lazy
 ====
 
+[![Release](https://jitpack.io/v/windwishers/LazyLazy.svg)](https://jitpack.io/#windwishers/LazyLazy)
+
+
 게으른이(본인)을 위한 리소스 모음입니다.
 
+
+## Setup
+Add the JitPack repository in your build.gradle (top level module):
+```gradle
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+And add next dependencies in the build.gradle of the module:
+```gradle
+dependencies {
+    implementation 'com.github.windwishers:LazyLazy:0.0.1'
+    }
+```
 
 
 COLOR Resource
@@ -25,3 +46,4 @@ https://github.com/windwishers/LazyLazy/blob/master/lazylazy/src/main/res/values
 ![#FFA500](https://placehold.it/15/FFA500/FFA500?text=+) `orange`
 ![#7FFF00](https://placehold.it/15/7FFF00/000000?text=+) `chartreuse`
 ![#00FF7F](https://placehold.it/15/00FF7F/000000?text=+) `springGreen`)    
+
