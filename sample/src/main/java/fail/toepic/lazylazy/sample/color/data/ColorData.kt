@@ -5,7 +5,7 @@ import fail.toepic.lazylazy.sample.R
 import fail.toepic.lazylazy.sample.color.model.Color
 
 
-val html5WebSafe = listOf(
+val html5WebSafePair = "web safe" to  listOf(
     R.color.black,
     R.color.navy,
     R.color.darkBlue,
@@ -156,16 +156,26 @@ val html5WebSafe = listOf(
     R.color.white
 )
 
+val colorSpacePrimary = "rgb - color space - primary" to listOf(R.color.red,R.color.green,R.color.blue)
+val colorSpaceSecondary = "rgb - color space - secondary" to listOf(R.color.yellow,R.color.magenta,R.color.cyan)
+val colorSpaceTertiary = "rgb - color space - tertiary" to listOf(R.color.azure,R.color.violet,R.color.rose,R.color.orange,
+    R.color.chartreuse,R.color.springGreen)
+
+
+
 val colorMap = mutableMapOf<Int,String>()
 
 object ColorData{
     fun loadData(context: Context): List<Color> {
-        val list = mutableListOf<ColorInternal>()
+        var list = mutableListOf<ColorInternal>()
         try {
             reloadColorMap()
 
-            val listTmp = loadList(list,html5WebSafe, context)
-            return listTmp.asSequence().groupBy {
+            list = loadList(list,html5WebSafePair, context)
+            list =loadList(list,colorSpacePrimary, context)
+            list =loadList(list,colorSpaceSecondary, context)
+            list =loadList(list,colorSpaceTertiary, context)
+            return list.asSequence().groupBy {
                 it.hex
             }.map {(hex, li) ->
                 val names = li.map { it.name }.distinct()
@@ -180,15 +190,15 @@ object ColorData{
     }
 
     private fun loadList(
-        target : MutableList<ColorInternal>,
-        source: List<Int>,
+        target: MutableList<ColorInternal>,
+        source: Pair<String, List<Int>>,
         context: Context
     ): MutableList<ColorInternal> {
-        val html5websafe = source.map {
-            Color.fromResId(context, it, "html5WebSafe")
+        val items = source.second.map {
+            Color.fromResId(context, it,source.first )
         }
 
-        target.addAll(html5websafe)
+        target.addAll(items)
         return target
     }
 

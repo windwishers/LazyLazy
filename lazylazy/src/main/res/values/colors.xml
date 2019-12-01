@@ -149,4 +149,6 @@
     <color name="lightYellow">#FFFFE0</color>
     <color name="ivory">#FFFFF0</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="rose">#FF007F</color>
 </resources>
