@@ -15,46 +15,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <include
+            android:id="@+id/hex_filter"
+            layout="@layout/linear_label_text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+        <include
+            android:id="@+id/name_filter"
+            layout="@layout/linear_label_text"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:weightSum="1"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/nameFilterLabel"
-                android:text="@string/fitler_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <EditText
-                android:id="@+id/name"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:autofillHints="color"
-                tools:targetApi="o"
-                android:inputType="text"
-                android:labelFor="@id/nameFilterLabel"
-                tools:ignore="LabelFor" />
-        </LinearLayout>
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/button"
-            android:text="@string/filtering"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/black_solid_black_ripple"
-            android:textColor="@color/wheat"
-            android:layout_margin="4dp"
-            />
-        <Button
-            android:id="@+id/reload"
-            android:text="@string/reload"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/black_solid_black_ripple"
-            android:textColor="@color/wheat"
-            android:layout_margin="4dp"
-            />
+
+            <Button
+                android:id="@+id/button"
+                android:text="@string/filtering"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_solid_black_ripple"
+                android:textColor="@color/wheat"
+                android:layout_margin="4dp"
+                style="?android:buttonBarButtonStyle"
+                />
+            <Button
+                android:id="@+id/reload"
+                android:text="@string/reload"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_solid_black_ripple"
+                android:textColor="@color/wheat"
+                android:layout_margin="4dp"
+                style="?android:buttonBarButtonStyle"
+                />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

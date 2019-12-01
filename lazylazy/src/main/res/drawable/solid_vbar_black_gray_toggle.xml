@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="false"
+    android:dither="true"
+    android:variablePadding="false" >
+    <item android:drawable="@drawable/black_solid_black_ripple" android:state_checked = "true" />
+    <item android:drawable="@drawable/gray_solid_v_bar_gray_ripple" android:state_checked = "false" />
+</selector>

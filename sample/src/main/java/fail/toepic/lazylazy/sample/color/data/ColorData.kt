@@ -155,30 +155,28 @@ val html5WebSafe = listOf(
     R.color.ivory,
     R.color.white
 )
+
 val colorMap = mutableMapOf<Int,String>()
 
-
-
 object ColorData{
-
-
     fun loadData(context: Context): List<Color> {
         val list = mutableListOf<ColorInternal>()
+        try {
+            reloadColorMap()
 
-        reloadColorMap()
-
-        val list2 = html5WebSafe
-
-        val listTmp = loadList(list,list2, context)
-
-        return listTmp.asSequence().groupBy {
-            it.hex
-        }.map {(hex, li) ->
-            val names = li.map { it.name }.distinct()
-            val categories = li.map { it.category }.distinct()
-            val resid = li[0].colorResInt
-            Color(hex = hex,colorResId = resid, names = names,categories = categories)
+            val listTmp = loadList(list,html5WebSafe, context)
+            return listTmp.asSequence().groupBy {
+                it.hex
+            }.map {(hex, li) ->
+                val names = li.map { it.name }.distinct()
+                val categories = li.map { it.category }.distinct()
+                val resid = li[0].colorResInt
+                Color(hex = hex,colorResId = resid, names = names,categories = categories)
+            }
+        } finally {
+            clearColorMap()
         }
+
     }
 
     private fun loadList(
@@ -194,11 +192,17 @@ object ColorData{
         return target
     }
 
+    /** R.color.XXX 를 불러와서 맵에 밀어 넣어둔다.  사용 후 clearColorMap 을 사용하여 맵을 해제 하는 편이 좋습니다.    */
     private fun reloadColorMap() {
         colorMap.clear()
         for (field in R.color::class.java.fields) {
             colorMap[field.getInt(R.color::javaClass)] = field.name
         }
+    }
+
+    /** 사용된 컬러맵을 클리어 합니다. */
+    private fun clearColorMap(){
+        colorMap.clear()
     }
 }
 

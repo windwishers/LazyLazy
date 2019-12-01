@@ -7,22 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import fail.toepic.lazylazy.sample.R
 import fail.toepic.lazylazy.sample.color.data.ColorData
 import fail.toepic.lazylazy.sample.color.model.Color
+import fail.toepic.lazylazy.sample.mutiFilter.MultiFilter
+import fail.toepic.lazylazy.sample.mutiFilter.MultiFilterItem
 import kotlinx.android.synthetic.main.activity_colors.*
 
 class ColorsActivity : AppCompatActivity() {
 
     private val adapter =   Listadapter()
 
-    var data = listOf(Item(true,Color("",R.color.red)))
+    private var data = listOf(Item(true,Color("",R.color.red)))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_colors)
 
-        list.layoutManager = GridLayoutManager(this,3,RecyclerView.VERTICAL,false)
-        list.adapter = adapter
-
-//        adapter.submitList(data)
+        initLayout()
 
         button.setOnClickListener {
             tryFilter()
@@ -36,6 +35,23 @@ class ColorsActivity : AppCompatActivity() {
 
     }
 
+    private val multiFilter : MultiFilter<Item> = MultiFilter()
+
+    private fun initLayout() {
+        list.layoutManager = GridLayoutManager(this, 3, RecyclerView.VERTICAL, false)
+        list.adapter = adapter
+
+
+
+        multiFilter.addFilter(MultiFilterItem(hex_filter,"HEXCODE"){ filter, item ->
+        true
+        })
+        multiFilter.addFilter(MultiFilterItem(name_filter,"NAME"){ filter, item ->
+            val text = filter.value
+            item.value.names.joinToString().contains(text,true)
+        })
+    }
+
     private fun reload() {
         data = ColorData.loadData(this).map {
             Item(true, it)
@@ -45,26 +61,14 @@ class ColorsActivity : AppCompatActivity() {
     }
 
     private fun tryFilter(){
+
+        multiFilter.getEnables()
+
         adapter.submitList(
             data.map {
-                Item( doFilter(it.value),it.value)
+                val filtered = multiFilter.doFiltered(it)
+                Item( filtered,it.value)
             }.filter { it.isVisible  }.toList()
         )
     }
-
-    private fun doFilter(color: Color): Boolean {
-
-        val r = filters.asSequence().map {
-            it.invoke(color)
-        }.filter { it }.count()
-        return r > 0
-    }
-
-    private val nameFilter : (Color) -> Boolean =  { it->
-        it.names.joinToString("").contains(name.text,true) && name.text.isNotBlank()
-    }
-
-    val filters: List<(Color) -> Boolean> =  listOf(
-        nameFilter
-    )
 }
