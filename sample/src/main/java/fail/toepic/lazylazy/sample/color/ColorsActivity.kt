@@ -44,7 +44,11 @@ class ColorsActivity : AppCompatActivity() {
 
 
         multiFilter.addFilter(MultiFilterItem(hex_filter,"HEXCODE"){ filter, item ->
-        true
+            val text = filter.value
+            if(text.isEmpty())
+                false
+            else
+                item.value.hex.contains(text,true)
         })
         multiFilter.addFilter(MultiFilterItem(name_filter,"NAME"){ filter, item ->
             val text = filter.value
