@@ -24,7 +24,12 @@ class Holder(v : View) : RecyclerView.ViewHolder(v.inflate(R.layout.item_color))
         item ?: return
 
         background.setBackgroundResource(item.value.colorResId)
-        label.text = "Name : \n"+item.value.names + " \n  category  \n " + item.value.categories
+        label.text = makeLabel(item)
+    }
+
+    private fun makeLabel(item: Item): CharSequence? {
+
+        return   "${item.value.hex} \n" + item.value.names + " \n  category  \n " + item.value.categories
     }
 
     private val background = itemView.findViewById<View>(R.id.background)
