@@ -48,7 +48,7 @@ class MultiFilter<T>{
 
             return items.filter { it.isEnable }.map {
                 it.tryFilter(item)
-            }.firstOrNull { it } ?: false
+            }.none { !it }
         }
 
 
