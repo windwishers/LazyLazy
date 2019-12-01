@@ -35,12 +35,10 @@ class MultiFilter<T>{
         return items.size
     }
 
-    fun getEnables() : List<Pair<Int,String>>{
+    fun hasEnabled() : Boolean{
         synchronized(this){
 
-            return items.filter { it.isEnable }.map {
-                it.id to it.text.text.toString()
-            }
+            return items.any { it.isEnable }
         }
 
     }

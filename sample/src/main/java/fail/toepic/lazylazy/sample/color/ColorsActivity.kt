@@ -48,7 +48,10 @@ class ColorsActivity : AppCompatActivity() {
         })
         multiFilter.addFilter(MultiFilterItem(name_filter,"NAME"){ filter, item ->
             val text = filter.value
-            item.value.names.joinToString().contains(text,true)
+            if(text.isEmpty())
+                false
+            else
+                item.value.names.joinToString().contains(text,true)
         })
     }
 
@@ -62,8 +65,9 @@ class ColorsActivity : AppCompatActivity() {
 
     private fun tryFilter(){
 
-        multiFilter.getEnables()
-
+        if (!multiFilter.hasEnabled()) {
+            return
+        }
         adapter.submitList(
             data.map {
                 val filtered = multiFilter.doFiltered(it)
